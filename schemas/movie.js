@@ -23,13 +23,15 @@ var movieSchema = new mongoose.Schema({
 })
 
 // movieSchema.pre 表示每次存储数据之前都先调用这个方法
+// Middleware是一些函数，在执行init,validate,save和remove的时候传递控制权。有两种类型的中间件，pre和post。
+// pre is a middleware use as the node middleware. in this case we execute a fun before per fun.
 movieSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
   } else {
     this.meta.updateAt = Date.now()
   }
-  // 调用next()让流程继续走下去
+  // pre是在执行save操作之前执行的函数，可以定义多个，并用next实现业务连接，如果不用next只会调用第一个。
   next()
 })
 

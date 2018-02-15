@@ -97,7 +97,7 @@ app.get('/admin/update/:id', function (req, res) {
 // admin post movie 后台录入提交
 app.post('/admin/movie/new', function (req, res) {
     // post的数据可能是新加的，也可能是修改过再次post：
-    var id = req.body.movie._id;
+    var id = req.body.movie._id; // body-parser将它转成对象
     var movieObj = req.body.movie;
     var _movie = null;
     if (id !== 'undefined') { // 已经存在的电影数据
